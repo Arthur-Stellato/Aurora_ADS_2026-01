@@ -1,5 +1,5 @@
 # Aurora_ADS_2026-01
-# 🏢 Nome da Empresa / Grupo
+# 🏢 Aurora
 ![Logo do Grupo](./docs/imagens/logo.png)
 
 ---
