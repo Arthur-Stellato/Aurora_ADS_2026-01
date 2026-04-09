@@ -15,7 +15,7 @@
 | Foto | Nome | GitHub |
 |------|------|--------|
 | <img src="img/arthur.webp" width="75"> | Arthur Gabriel Teotonio Stellato | [github.com/Yakino41](https://github.com/Yakino) |
-| ![Foto](./docs/imagens/integrante2.png) | Conrado Henrique Lima Da Mata | [github.com/usuario](https://github.com/usuario) |
+| <img src="img/conrado.jpg" width="75"> | Conrado Henrique Lima Da Mata | [github.com/usuario](https://github.com/usuario) |
 | ![Foto](./docs/imagens/integrante3.png) | João Aleixo Melo | [github.com/usuario](https://github.com/usuario) |
 | ![Foto](./docs/imagens/integrante3.png) | Reinan Cordeiro Morais | [github.com/usuario](https://github.com/usuario) |
 
@@ -50,7 +50,7 @@ Aqui você encontra todos os documentos relacionados ao projeto:
 ---
 
 ## 🚀 Tecnologias Utilizadas
-- Linguagem: 
+- Linguagem:  <img src="img/html.png" width="50" title="HTML">  <img src="img/css.png" width="50" title="CSS">  <img src="js.png" width="50" title="JavaScript">
 - Framework: 
 - Outros:
 
