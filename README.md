@@ -1,6 +1,6 @@
 # Aurora_ADS_2026-01
 # 🏢 Aurora
-![Logo do Grupo]((/img/lotus.png))
+![Logo do Grupo](img/lotus.png)
 
 ---
 
