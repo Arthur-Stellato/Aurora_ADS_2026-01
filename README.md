@@ -1,6 +1,6 @@
 # Aurora_ADS_2026-01
 # 🏢 Aurora
-![Logo do Grupo]((png-transparent-warframe-logo-digital-extremes-symbol-lotus-root-emblem-white-leaf-thumbnail.png))
+![Logo do Grupo]((/img/lotus.png))
 
 ---
 
