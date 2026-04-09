@@ -56,4 +56,4 @@ Aqui você encontra todos os documentos relacionados ao projeto:
 ---
 
 ## 📌 Status do Projeto
-🚧 Em desenvolvimento
+<img src="img/cat.gif" width="20" height="20" title="cat"> Em desenvolvimento
