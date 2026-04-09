@@ -14,7 +14,7 @@
 
 | Foto | Nome | GitHub |
 |------|------|--------|
-| ![Foto](https://www.instagram.com/p/DK-tHfTRaJO/) | Arthur Gabriel Teotonio Stellato | [github.com/Yakino41](https://github.com/Yakino) |
+| ![Foto](img/arthur.webp) | Arthur Gabriel Teotonio Stellato | [github.com/Yakino41](https://github.com/Yakino) |
 | ![Foto](./docs/imagens/integrante2.png) | Conrado Henrique Lima Da Mata | [github.com/usuario](https://github.com/usuario) |
 | ![Foto](./docs/imagens/integrante3.png) | João Aleixo Melo | [github.com/usuario](https://github.com/usuario) |
 | ![Foto](./docs/imagens/integrante3.png) | Reinan Cordeiro Morais | [github.com/usuario](https://github.com/usuario) |
