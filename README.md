@@ -50,10 +50,8 @@ Aqui você encontra todos os documentos relacionados ao projeto:
 ---
 
 ## 🚀 Tecnologias Utilizadas
-- Linguagem De Marcação: <img src="img/.png" width="25" title="HTML">  <img src="img/css3.png" width="29"  title="CSS">
+- Linguagem De Marcação: <img src="img/html1.png" width="21" title="HTML" style="vertical-align: middle;"> <img src="img/css3.png" width="28" title="CSS" style="vertical-align: middle;">
 - Linguagem: <img src="img/js.png" width="20" title="JavaScript">
-- Framework: 
-- Outros:
 
 ---
 
