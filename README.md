@@ -1,6 +1,6 @@
 # Aurora_ADS_2026-01
 # 🏢 Aurora
-![Logo do Grupo](./docs/imagens/logo.png)
+![Logo do Grupo]([./docs/imagens/logo.png](https://w7.pngwing.com/pngs/979/811/png-transparent-warframe-logo-digital-extremes-symbol-lotus-root-emblem-white-leaf-thumbnail.png))
 
 ---
 
@@ -14,9 +14,10 @@
 
 | Foto | Nome | GitHub |
 |------|------|--------|
-| ![Foto](./docs/imagens/integrante1.png) | Nome Completo | [github.com/usuario](https://github.com/usuario) |
-| ![Foto](./docs/imagens/integrante2.png) | Nome Completo | [github.com/usuario](https://github.com/usuario) |
-| ![Foto](./docs/imagens/integrante3.png) | Nome Completo | [github.com/usuario](https://github.com/usuario) |
+| ![Foto]([./docs/imagens/integrante1.png](https://www.instagram.com/p/DK-tHfTRaJO/)) | Arthur Gabriel Teotonio Stellato | [github.com/Yakino41](https://github.com/Yakino) |
+| ![Foto](./docs/imagens/integrante2.png) | Conrado Henrique Lima Da Mata | [github.com/usuario](https://github.com/usuario) |
+| ![Foto](./docs/imagens/integrante3.png) | João Aleixo Melo | [github.com/usuario](https://github.com/usuario) |
+| ![Foto](./docs/imagens/integrante3.png) | Reinan Cordeiro Morais | [github.com/usuario](https://github.com/usuario) |
 
 ---
 
