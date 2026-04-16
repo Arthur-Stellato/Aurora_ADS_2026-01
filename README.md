@@ -40,7 +40,7 @@ Pessoas interessadas em doar móveis, bem como famílias de baixa renda que nece
 
 Aqui você encontra todos os documentos relacionados ao projeto:
 
-- 📄 [Requisitos Funcionais](./RequisitosDoUsuário/RF.md)
+- 📄 [Requisitos Funcionais](./Requisitos Do Usuário/RF.md)
 - 📄 [Requisitos Não Funcionais](./RequisitosDoUsuário/RNF.md)
 - 📄 [Casos de Uso](./docs/casos-de-uso.md)
 - 📄 [Diagrama de Classes](./docs/diagrama-classes.md)
