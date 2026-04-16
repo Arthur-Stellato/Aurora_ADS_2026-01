@@ -16,12 +16,13 @@ A Tabela 3 a seguir contém as Histórias de Usuário elicitadas.
     <tbody>
         <tr>
             <td align="center">US01</td>
-            <td>Eu, como usuário, quero visualizar o impacto do projeto, para entender quantas famílias já foram ajudadas.</td>
+            <td>Como usuário que vai doar, eu quero me cadastrar na plataforma para oferecer móveis para doação.</td>
             <td>
                 <ol>
-                    <li>Ao entrar no site, a informação deve aparecer na página inicial</li>
-                    <li>Devem ser exibidos dados de incentivo à doação</li>
-                    <li>Deve mostrar a estimativa de famílias impactadas</li>
+                    <li>O usuário deve informar nome, e-mail e senha obrigatoriamente</li>
+                    <li>A senha deve ter no mínimo 6 caracteres</li>
+                    <li>O cadastro deve ser confirmado com mensagem de sucesso</li>
+                    <li>O usuário deve conseguir fazer login após o cadastro</li>
                 </ol>
             </td>
             <td align="center">Alta</td>
@@ -30,24 +31,41 @@ A Tabela 3 a seguir contém as Histórias de Usuário elicitadas.
         </tr>
         <tr>
             <td align="center">US02</td>
-            <td>Eu, como usuário, quero ter um perfil, para interagir com outros usuários na plataforma.</td>
+            <td>Como usuário que vai receber, eu quero me cadastrar na plataforma para solicitar móveis disponíveis.</td>
             <td>
                 <ol>
-                    <li>As informações do usuário devem estar visíveis</li>
-                    <li>O perfil pode ser público ou privado</li>
+                    <li>O usuário deve informar nome, e-mail, senha e endereço</li>
+                    <li>Todos os campos devem ser obrigatórios</li>
+                    <li>O endereço deve ser armazenado corretamente</li>
                 </ol>
             </td>
-            <td align="center">Baixa</td>
+            <td align="center">Alta</td>
             <td align="center">RF10</td>
             <td align="center">2</td>
         </tr>
         <tr>
             <td align="center">US03</td>
-            <td>Eu, como usuário, quero visualizar os móveis disponíveis, para obter informações sobre eles.</td>
+            <td>Como usuário que vai doar, eu quero cadastrar um móvel disponível para encontrar alguém que precise dele.</td>
             <td>
                 <ol>
-                    <li>As informações dos móveis devem estar visíveis</li>
-                    <li>Os móveis devem aparecer na seção de doação</li>
+                    <li>O doador deve informar nome do móvel, descrição e estado de conservação</li>               
+                    <li>O móvel deve aparecer na lista pública após cadastro</li>
+                    <li>O sistema deve exibir mensagem de sucesso após o cadastro</li>
+                </ol>
+            </td>
+            <td align="center">Alta</td>
+            <td align="center">RF03</td>
+            <td align="center">5</td>
+        </tr>
+        <tr>
+            <td align="center">US04</td>
+            <td>Como usuário que vai receber, eu quero buscar e visualizar móveis disponíveis para encontrar itens que atendam minhas necessidades.</td>
+            <td>
+                <ol>
+                    <li>O usuário deve conseguir visualizar uma lista de móveis disponíveis</li>               
+                    <li>Deve ser possível filtrar por tipo de móvel (ex: sofá, cama, mesa)</li>
+                    <li>Apenas móveis com status “disponível” devem ser exibidos</li>
+                    <li>Deve ser possível acessar os detalhes de um móvel específico</li>
                 </ol>
             </td>
             <td align="center">Alta</td>
