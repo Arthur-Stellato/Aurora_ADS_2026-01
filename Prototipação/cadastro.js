@@ -1,131 +1,206 @@
-// Configuração centralizada de validação
-const VALIDATION_RULES = {
-  email: {
-    minLength: 1,
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    message: 'Email inválido'
-  },
-  password: {
-    maxLength: 8,
-    minLength: 1,
-    patterns: {
-      number: /[0-9]/,
-      uppercase: /[A-Z]/,
-      lowercase: /[a-z]/
-    },
-    messages: {
-      empty: 'Informe uma senha',
-      tooLong: 'Senha deve conter no máximo 8 caracteres',
-      noNumber: 'Senha deve conter no mínimo 1 número',
-      noUppercase: 'Senha deve conter no mínimo 1 letra maiúscula',
-      noLowercase: 'Senha deve conter no mínimo 1 letra minúscula'
-    }
-  }
-};
+/**
+ * cadastro.js
+ * Gerencia cadastro, consulta, filtragem e exclusão de móveis.
+ * RF01, RF02, RF03, RF04 | US03, US04
+ */
 
-const STORAGE_KEYS = {
-  email: 'email',
-  password: 'senha',
-  loggedIn: 'loggedIn'
-};
+const STORAGE_KEY  = 'moveis_doacao';
+const TIPOS_MOVEIS = ['todos','sofa','mesa','cama','cadeira','armario','estante'];
 
-// Validação de senha
-function validatePassword(password) {
-  const { maxLength, patterns, messages } = VALIDATION_RULES.password;
-  
-  if (password.length === 0) return messages.empty;
-  if (password.length > maxLength) return messages.tooLong;
-  if (!patterns.number.test(password)) return messages.noNumber;
-  if (!patterns.uppercase.test(password)) return messages.noUppercase;
-  if (!patterns.lowercase.test(password)) return messages.noLowercase;
-  
-  return null;
+// =====================================================================
+// ARMAZENAMENTO
+// =====================================================================
+
+function carregarMoveisDoLocalStorage() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 }
 
-// Validação de email
-function validateEmail(email) {
-  if (email.length === 0) return 'Informe um email';
-  if (!VALIDATION_RULES.email.pattern.test(email)) {
-    return VALIDATION_RULES.email.message;
-  }
-  return null;
+function salvarMovelNoBD(movel) {
+  const lista = carregarMoveisDoLocalStorage();
+  movel.id = Date.now();
+  lista.push(movel);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+  return movel;
 }
 
-// Função de cadastro refatorada
-function cadastro() {
-  const emailInput = document.getElementById('email-cadastro');
-  const senhaInput = document.getElementById('password-cadastro');
-  const senhaConfirmInput = document.getElementById('password-confirm-cadastro');
+function deletarMovelDoBD(id) {
+  const lista = carregarMoveisDoLocalStorage().filter(m => m.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+}
 
-  // Validar campos
-  const emailError = validateEmail(emailInput.value);
-  if (emailError) {
-    alert(emailError);
-    return false;
-  }
-
-  const passwordError = validatePassword(senhaInput.value);
-  if (passwordError) {
-    alert(passwordError);
-    return false;
-  }
-
-  // Validar confirmação de senha
-  if (senhaInput.value !== senhaConfirmInput.value) {
-    alert('As senhas não coincidem');
-    return false;
-  }
-
-  // Salvar dados
-  localStorage.setItem(STORAGE_KEYS.email, emailInput.value);
-  localStorage.setItem(STORAGE_KEYS.password, senhaInput.value);
-  localStorage.setItem(STORAGE_KEYS.loggedIn, 'false');
-
-  alert('Sua conta foi criada com sucesso! ✅');
-  
-  // Limpar formulário
-  document.querySelector('[for="modal-cadastro"] .modal-overlay form')?.reset?.();
-  document.getElementById('modal-cadastro').checked = false;
-  
+function deletarTodosMoveisDoLocalStorage() {
+  if (!confirm('Tem certeza que quer deletar TODOS os móveis? Ação irreversível!')) return false;
+  localStorage.removeItem(STORAGE_KEY);
+  const lista = document.querySelector('.lista-moveis');
+  if (lista) lista.innerHTML = '';
+  mostrarToastCadastro('Todos os móveis foram removidos.');
   return true;
 }
 
-// Função de login refatorada
-function login() {
-  const storedEmail = localStorage.getItem(STORAGE_KEYS.email);
-  const storedPassword = localStorage.getItem(STORAGE_KEYS.password);
-  
-  const userEmail = document.getElementById('userEmail').value;
-  const userPassword = document.getElementById('userSenha').value;
+function pesquisarMoveisPorCampo(campo, valor) {
+  return carregarMoveisDoLocalStorage().filter(m =>
+    String(m[campo]).toLowerCase().includes(valor.toLowerCase())
+  );
+}
 
-  // Validar se usuário existe
-  if (!storedEmail || !storedPassword) {
-    alert('Nenhuma conta cadastrada. Por favor, crie uma conta primeiro!');
-    return false;
-  }
+// =====================================================================
+// RENDERIZAÇÃO
+// =====================================================================
 
-  // Validar credenciais
-  if (userEmail === storedEmail && userPassword === storedPassword) {
-    localStorage.setItem(STORAGE_KEYS.loggedIn, 'true');
-    alert('Login realizado com sucesso! ✅');
-    document.getElementById('modal-login').checked = false;
-    return true;
+const ESTADO_LABELS = { novo:'Novo', otimo:'Ótimo', bom:'Bom', regular:'Regular' };
+const TIPO_LABELS   = { sofa:'Sofá', mesa:'Mesa', cama:'Cama', cadeira:'Cadeira', armario:'Armário', estante:'Estante' };
+
+function criarHTMLMovel(movel) {
+  const tipo   = TIPO_LABELS[movel.tipo]   || movel.tipo;
+  const estado = ESTADO_LABELS[movel.estado] || movel.estado;
+  return `
+    <h4>${tipo}</h4>
+    <p><strong>Estado:</strong> ${estado}</p>
+    <p><strong>Descrição:</strong> ${movel.descricao}</p>
+    <p><strong>Contato:</strong> ${movel.contato}</p>
+    <button onclick="deletarMovel(${movel.id})">🗑️ Remover</button>
+  `;
+}
+
+function adicionarMovelAoDOM(movel) {
+  const lista = document.querySelector('.lista-moveis');
+  if (!lista) return;
+  const div = document.createElement('div');
+  div.className = `movel ${movel.tipo}`;
+  div.style.display = 'block';
+  div.dataset.id = movel.id;
+  div.innerHTML = criarHTMLMovel(movel);
+  lista.appendChild(div);
+}
+
+// Fallback: reutiliza o toast de form-handler se disponível
+function mostrarToastCadastro(msg, tipo = 'sucesso') {
+  if (typeof mostrarToast === 'function') {
+    mostrarToast(msg, tipo);
   } else {
-    alert('Email ou senha incorretos');
-    return false;
+    alert(msg);
   }
 }
 
-// Validar acesso ao cadastro de móveis
-function abrirCadastroMovel() {
-  const isLoggedIn = localStorage.getItem(STORAGE_KEYS.loggedIn) === 'true';
+// =====================================================================
+// FILTROS (RF04)
+// =====================================================================
 
-  if (!isLoggedIn) {
-    alert('Você precisa estar logado para cadastrar móveis!');
-    document.getElementById('modal-login').checked = true;
-    return false;
+function configurarFiltros() {
+  const lista = document.querySelector('.lista-moveis');
+  if (!lista) return;
+
+  TIPOS_MOVEIS.forEach(tipo => {
+    const el = document.getElementById(tipo === 'todos' ? 'todos' : tipo);
+    if (!el) return;
+
+    // Clona para limpar listeners anteriores
+    const novo = el.cloneNode(true);
+    el.parentNode.replaceChild(novo, el);
+
+    novo.addEventListener('change', () => {
+      lista.querySelectorAll('.movel').forEach(m => {
+        m.style.display = (tipo === 'todos' || m.classList.contains(tipo)) ? 'block' : 'none';
+      });
+    });
+  });
+}
+
+// =====================================================================
+// INICIALIZAÇÃO
+// =====================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Carrega móveis persistidos (RF02 / RF03)
+  carregarMoveisDoLocalStorage().forEach(adicionarMovelAoDOM);
+  configurarFiltros();
+
+  // Formulário de cadastro de móvel (RF01 / US03)
+  const formMovel = document.getElementById('form-cadastro-movel');
+  if (formMovel) {
+    formMovel.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const tipo      = formMovel.querySelector('#tipo-movel').value;
+      const descricao = formMovel.querySelector('#descricao').value.trim();
+      const estado    = formMovel.querySelector('#estado').value;
+      const contato   = formMovel.querySelector('#contato').value.trim();
+
+      if (!tipo || !descricao || !estado || !contato) {
+        mostrarToastCadastro('Preencha todos os campos.', 'erro');
+        return;
+      }
+
+      const movel = salvarMovelNoBD({ tipo, descricao, estado, contato });
+      adicionarMovelAoDOM(movel);
+      configurarFiltros();
+      formMovel.reset();
+
+      document.getElementById('modal-cadastro-movel').checked = false;
+      mostrarToastCadastro('Móvel cadastrado com sucesso! ✅');
+
+      // Reativa filtro "Todos"
+      const todos = document.getElementById('todos');
+      if (todos) todos.checked = true;
+    });
   }
 
-  document.getElementById('modal-cadastro-movel').checked = true;
-  return true;
-}
+  // Abre modal consulta → garante filtro "Todos" ativo (RF03)
+  const modalConsulta = document.getElementById('modal-consulta');
+  if (modalConsulta) {
+    modalConsulta.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        document.querySelectorAll('.lista-moveis .movel').forEach(m => m.style.display = 'block');
+        const todos = document.getElementById('todos');
+        if (todos) todos.checked = true;
+      }
+    });
+  }
+});
+
+// =====================================================================
+// FUNÇÕES GLOBAIS
+// =====================================================================
+
+window.deletarMovel = function (id) {
+  if (!confirm('Remover este móvel?')) return;
+  deletarMovelDoBD(id);
+  document.querySelector(`[data-id="${id}"]`)?.remove();
+  mostrarToastCadastro('Móvel removido com sucesso.');
+};
+
+window.deletarTodos = deletarTodosMoveisDoLocalStorage;
+
+window.executarPesquisa = function () {
+  const campo = document.getElementById('campo-pesquisa').value;
+  const valor = document.getElementById('valor-pesquisa').value.trim();
+
+  if (!valor) { mostrarToastCadastro('Digite um valor para pesquisar.', 'erro'); return; }
+
+  const resultado = pesquisarMoveisPorCampo(campo, valor);
+  const lista = document.querySelector('.lista-moveis');
+  lista.innerHTML = '';
+
+  if (resultado.length === 0) {
+    lista.innerHTML = `<p style="color:var(--ink-muted);padding:20px 0;">Nenhum móvel encontrado para "<strong>${valor}</strong>".</p>`;
+    return;
+  }
+
+  resultado.forEach(adicionarMovelAoDOM);
+};
+
+window.limparPesquisa = function () {
+  const campoEl = document.getElementById('campo-pesquisa');
+  const valorEl = document.getElementById('valor-pesquisa');
+  if (campoEl) campoEl.value = 'tipo';
+  if (valorEl) valorEl.value = '';
+
+  const lista = document.querySelector('.lista-moveis');
+  if (lista) {
+    lista.innerHTML = '';
+    carregarMoveisDoLocalStorage().forEach(adicionarMovelAoDOM);
+  }
+
+  const todos = document.getElementById('todos');
+  if (todos) todos.checked = true;
+};

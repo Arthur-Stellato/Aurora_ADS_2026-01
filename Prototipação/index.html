@@ -1,126 +1,179 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doação de Móveis</title>
+  <title>MóveisSolidários — Doe, receba, transforme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
   <!-- Checkboxes invisíveis para controlar os modais -->
   <input type="checkbox" id="modal-cadastro" class="modal-toggle">
   <input type="checkbox" id="modal-login" class="modal-toggle">
   <input type="checkbox" id="modal-consulta" class="modal-toggle">
   <input type="checkbox" id="modal-cadastro-movel" class="modal-toggle">
 
-  <!-- Navegação superior -->
+  <!-- ======================== NAVBAR ======================== -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="nav-left">
-        <!-- Pode colocar logo aqui -->
-        <label for="letra-acessiblidade" class="letraAcess" role="button" tabindex="0" aria-pressed="false" title="Tamanho: Normal">
-          <img src="LetraAcess.png" alt="Alternar tamanho da letra">
-        </label>
-        <label for="cor-acessibilidade" class="satAcess" role="button" tabindex="0" aria-pressed="false" title="Saturação: Normal">
-          <img src="cor.png" alt="Alternar saturação de cor">
-        </label>
+      <div class="nav-brand">
+        <span class="brand-icon">🌿</span>
+        <span class="brand-name">MóveisSolidários</span>
+      </div>
+
+      <div class="nav-center">
+        <a href="#sobre" class="nav-link">Sobre</a>
+        <a href="#stats-section" class="nav-link">Impacto</a>
+        <label for="modal-consulta" class="nav-link" style="cursor:pointer;">Ver móveis</label>
       </div>
 
       <div class="nav-right">
-        <a href="#sobre" class="nav-btn">Sobre</a>
-        <label for="modal-cadastro" class="nav-btn">Cadastro</label>
-        <label for="modal-login" class="nav-btn">Login</label>
-      </div>
+        <label class="a11y-btn letraAcess" role="button" tabindex="0" aria-pressed="false" title="Tamanho da letra">
+          <svg width="20" height="16" viewBox="0 0 24 18" fill="none">
+            <text x="0" y="14" font-size="10" fill="currentColor" font-family="Georgia,serif" font-weight="bold">A</text>
+            <text x="10" y="16" font-size="15" fill="currentColor" font-family="Georgia,serif" font-weight="bold">A</text>
+          </svg>
+        </label>
+        <label class="a11y-btn satAcess" role="button" tabindex="0" aria-pressed="false" title="Preto e branco">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 3v18"/>
+            <path d="M12 3a9 9 0 0 1 0 18" fill="currentColor" stroke="none"/>
+          </svg>
+        </label>
+
+        <!-- NÃO logado -->
+        <div class="auth-guest" id="auth-guest">
+          <label for="modal-login" class="btn-nav btn-outline">Entrar</label>
+          <label for="modal-cadastro" class="btn-nav btn-solid">Criar conta</label>
+        </div>
+
+        <!-- LOGADO -->
+        <div class="auth-user" id="auth-user" style="display:none;">
+          <div class="user-pill">
+            <span class="user-avatar" id="user-avatar">?</span>
+            <span class="user-greeting" id="user-greeting">Olá</span>
+          </div>
+          <button class="btn-nav btn-outline" onclick="fazerLogout()">Sair</button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- Modal de Cadastro -->
+  <!-- ======================== MODAL: CADASTRO ======================== -->
   <div class="modal-overlay">
     <div class="modal-content">
-      <label for="modal-cadastro" class="modal-close">&times;</label>
-      <h2>Cadastro de Usuário</h2>
-      <form class="modal-form">
+      <label for="modal-cadastro" class="modal-close">✕</label>
+      <div class="modal-header">
+        <h2>Criar conta</h2>
+        <p class="modal-sub">Junte-se à nossa comunidade solidária</p>
+      </div>
+      <form class="modal-form" id="form-cadastro-usuario">
         <div class="form-group">
-          <label for="nome">Nome Completo:</label>
-          <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+          <label>Quero:</label>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="tipo-usuario" id="tipo-doador" value="doador" checked>
+              <span class="radio-icon">🤝</span>
+              <span>Doar móveis</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="tipo-usuario" id="tipo-receptor" value="receptor">
+              <span class="radio-icon">🏠</span>
+              <span>Receber móveis</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" placeholder="Seu nome" required>
+          </div>
+          <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" placeholder="(00) 00000-0000">
+          </div>
         </div>
         <div class="form-group">
-          <label for="numero-telefone">Telefone:
-            <input type="text" id="telefone" name="telefone" placeholder="(00)000000000" required>
-          </label>
+          <label for="email-cadastro">E-mail</label>
+          <input type="email" id="email-cadastro" placeholder="seu@email.com" required>
         </div>
-        <div class="form-group">
-          <label for="email-cadastro">Email:</label>
-          <input type="email" id="email-cadastro" name="email" placeholder="seu@email.com" required>
+        <div class="form-group" id="campo-endereco" style="display:none;">
+          <label for="endereco">Endereço <span class="required-mark">*</span></label>
+          <input type="text" id="endereco" placeholder="Rua, número, bairro, cidade">
         </div>
-        <div class="form-group">
-          <label for="password-cadastro">Senha:</label>
-          <input type="passowrdcad" id="password-cadastro" name="senha" placeholder="Senha..." required>
-          <p>• Senha Deve Conter No Máximo 8 caracteres, pelo menos 1 número, 1 letra maiúscula e 1 letra minúscula.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password-cadastro">Senha</label>
+            <input type="password" id="password-cadastro" placeholder="Crie uma senha" required>
+          </div>
+          <div class="form-group">
+            <label for="password-confirm-cadastro">Confirmar</label>
+            <input type="password" id="password-confirm-cadastro" placeholder="Repita a senha" required>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="password-confirm-cadastro">Confirme a Senha:</label>
-          <input type="passwordcad" id="password-confirm-cadastro" name="senha-confirm" placeholder="Confirme a senha..." required>
-          <p>• Confirme a senha para garantir que digitou corretamente.</p>
-        </div>
-        <button type="submit" class="submit-btn" onclick="cadastro()">Cadastrar</button>
+        <p class="hint">Mínimo 6 caracteres, com número, maiúscula e minúscula.</p>
+        <button type="submit" class="submit-btn">Criar conta</button>
+        <p class="modal-switch">Já tem conta? <label for="modal-login" class="switch-link" id="switch-to-login">Entrar</label></p>
       </form>
     </div>
   </div>
 
-  <!-- Modal de Login -->
+  <!-- ======================== MODAL: LOGIN ======================== -->
   <div class="modal-overlay">
-    <div class="modal-content">
-      <label for="modal-login" class="modal-close">&times;</label>
-      <h2>Login</h2>
-      <form class="modal-form">
+    <div class="modal-content modal-narrow">
+      <label for="modal-login" class="modal-close">✕</label>
+      <div class="modal-header">
+        <h2>Entrar</h2>
+        <p class="modal-sub">Bem-vindo(a) de volta 👋</p>
+      </div>
+      <form class="modal-form" id="form-login">
         <div class="form-group">
-          <label for="userEmail">Email:</label>
-          <input type="email" id="userEmail" name="email" placeholder="seu@email.com" required>
+          <label for="userEmail">E-mail</label>
+          <input type="email" id="userEmail" placeholder="seu@email.com" required>
         </div>
         <div class="form-group">
-          <label for="userSenha">Senha:</label>
-          <input type="password" id="userSenha" name="senha" placeholder="Sua senha" required>
+          <label for="userSenha">Senha</label>
+          <input type="password" id="userSenha" placeholder="Sua senha" required>
         </div>
-        <button type="submit" class="submit-btn" onclick="login()">Entrar</button>
+        <button type="submit" class="submit-btn">Entrar</button>
+        <p class="modal-switch">Não tem conta? <label for="modal-cadastro" class="switch-link">Criar conta</label></p>
       </form>
     </div>
   </div>
 
-  <!-- Modal de Consulta -->
+  <!-- ======================== MODAL: CONSULTA ======================== -->
   <div class="modal-overlay">
     <div class="modal-content modal-large">
-      <label for="modal-consulta" class="modal-close">&times;</label>
-      <h2>Consulta de Móveis</h2>
-      
-      <div class="filtros">
-        <h3>Filtrar por tipo:</h3>
-        <input type="radio" name="tipo" id="todos" checked>
-        <label for="todos">Todos</label>
-
-        <input type="radio" name="tipo" id="sofa">
-        <label for="sofa">Sofá</label>
-
-        <input type="radio" name="tipo" id="mesa">
-        <label for="mesa">Mesa</label>
-
-        <input type="radio" name="tipo" id="cama">
-        <label for="cama">Cama</label>
-
-        <input type="radio" name="tipo" id="cadeira">
-        <label for="cadeira">Cadeira</label>
-
-        <input type="radio" name="tipo" id="armario">
-        <label for="armario">Armário</label>
-
-        <input type="radio" name="tipo" id="estante">
-        <label for="estante">Estante</label>
+      <label for="modal-consulta" class="modal-close">✕</label>
+      <div class="modal-header">
+        <h2>Móveis disponíveis</h2>
+        <p class="modal-sub">Encontre o que você precisa</p>
       </div>
+
+      <div class="filtros">
+        <span class="filtro-label">Filtrar por tipo:</span>
+        <input type="radio" name="tipo" id="todos" checked>
+        <label for="todos" class="filtro-chip">Todos</label>
+        <input type="radio" name="tipo" id="sofa">
+        <label for="sofa" class="filtro-chip">Sofá</label>
+        <input type="radio" name="tipo" id="mesa">
+        <label for="mesa" class="filtro-chip">Mesa</label>
+        <input type="radio" name="tipo" id="cama">
+        <label for="cama" class="filtro-chip">Cama</label>
+        <input type="radio" name="tipo" id="cadeira">
+        <label for="cadeira" class="filtro-chip">Cadeira</label>
+        <input type="radio" name="tipo" id="armario">
+        <label for="armario" class="filtro-chip">Armário</label>
+        <input type="radio" name="tipo" id="estante">
+        <label for="estante" class="filtro-chip">Estante</label>
+      </div>
+
       <div class="search-section">
-        <h3>Pesquisar móvel:</h3>
         <div class="search-inputs">
           <select id="campo-pesquisa">
             <option value="tipo">Tipo</option>
@@ -128,144 +181,177 @@
             <option value="estado">Estado</option>
             <option value="contato">Contato</option>
           </select>
-          <input type="text" id="valor-pesquisa" placeholder="Digite o valor para pesquisar...">
-          <button onclick="executarPesquisa()" class="btn-pesquisar">🔍 Pesquisar</button>
+          <input type="text" id="valor-pesquisa" placeholder="Buscar...">
+          <button onclick="executarPesquisa()" class="btn-pesquisar">🔍 Buscar</button>
           <button onclick="limparPesquisa()" class="btn-limpar">Limpar</button>
         </div>
       </div>
 
-      <div class="action-buttons">
-        <button onclick="deletarTodos()" class="btn-deletar-todos" style="background: #d32f2f; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">🗑️ Deletar Todos os Móveis</button>
-      </div>
+      <div class="lista-moveis"></div>
 
-      <div class="lista-moveis">
-        <!-- Móveis cadastrados pelo usuário aparecerão aqui -->
+      <div class="action-buttons" id="btn-deletar-area" style="display:none;">
+        <button onclick="deletarTodos()" class="btn-deletar-todos">🗑️ Deletar todos</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal de Cadastro de Móveis -->
+  <!-- ======================== MODAL: CADASTRO DE MÓVEL ======================== -->
   <div class="modal-overlay">
-    <div class="modal-content modal-large">
-      <label for="modal-cadastro-movel" class="modal-close">&times;</label>
-      <h2>Cadastro de Móveis</h2>
-      <form class="modal-form">
-        <div class="form-group">
-          <label for="tipo-movel">Tipo de Móvel:</label>
-          <select id="tipo-movel" name="tipo-movel" required>
-            <option value="">Selecione o tipo</option>
-            <option value="sofa">Sofá</option>
-            <option value="mesa">Mesa</option>
-            <option value="cama">Cama</option>
-            <option value="cadeira">Cadeira</option>
-            <option value="armario">Armário</option>
-            <option value="estante">Estante</option>
-          </select>
+    <div class="modal-content">
+      <label for="modal-cadastro-movel" class="modal-close">✕</label>
+      <div class="modal-header">
+        <h2>Cadastrar móvel</h2>
+        <p class="modal-sub">Coloque seu móvel para doação</p>
+      </div>
+      <form class="modal-form" id="form-cadastro-movel">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipo-movel">Tipo de móvel</label>
+            <select id="tipo-movel" required>
+              <option value="">Selecione</option>
+              <option value="sofa">Sofá</option>
+              <option value="mesa">Mesa</option>
+              <option value="cama">Cama</option>
+              <option value="cadeira">Cadeira</option>
+              <option value="armario">Armário</option>
+              <option value="estante">Estante</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="estado">Conservação</label>
+            <select id="estado" required>
+              <option value="">Selecione</option>
+              <option value="novo">Novo</option>
+              <option value="otimo">Ótimo</option>
+              <option value="bom">Bom</option>
+              <option value="regular">Regular</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
-          <label for="descricao">Descrição:</label>
-          <textarea id="descricao" name="descricao" placeholder="Descreva o móvel (cor, tamanho, estado, etc.)" style="font-family: Arial, Helvetica, sans-serif;"
-            required></textarea>
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" placeholder="Cor, tamanho, material, detalhes..." required></textarea>
         </div>
         <div class="form-group">
-          <label for="estado">Estado de Conservação:</label>
-          <select id="estado" name="estado" required>
-            <option value="">Selecione o estado</option>
-            <option value="novo">Novo</option>
-            <option value="otimo">Ótimo</option>
-            <option value="bom">Bom</option>
-            <option value="regular">Regular</option>
-          </select>
+          <label for="contato">Seu contato</label>
+          <input type="text" id="contato" placeholder="Telefone ou e-mail" required>
         </div>
-        <div class="form-group">
-          <label for="contato">Seu Contato:</label>
-          <input type="text" id="contato" name="contato" placeholder="Telefone ou email" required>
-        </div>
-        <button type="submit" class="submit-btn">Cadastrar Móvel</button>
+        <button type="submit" class="submit-btn">Publicar doação</button>
       </form>
     </div>
   </div>
 
-  <!-- Cabeçalho -->
+  <!-- ======================== HERO ======================== -->
   <header class="hero">
-    <div class="hero-text">
-      <h1>Dê um novo lar aos seus móveis</h1>
-      <p>Doar móveis é compartilhar conforto, dignidade e esperança.</p>
+    <div class="hero-bg">
+      <div class="hero-img" style="background-image:url('folha.jpg')"></div>
+      <div class="hero-overlay"></div>
     </div>
+    <div class="hero-content">
+      <div class="hero-badge">🌿 Plataforma solidária e gratuita</div>
+      <h1 class="hero-title">
+        Cada móvel tem<br>
+        <em>uma nova história</em><br>
+        esperando por ele
+      </h1>
+      <p class="hero-sub">Conectamos quem tem móveis para dar com quem precisa receber.</p>
+
+      <!-- Visitante -->
+      <div class="hero-actions" id="hero-guest-actions">
+        <label for="modal-cadastro" class="hero-btn hero-btn-primary">Começar agora</label>
+        <label for="modal-consulta" class="hero-btn hero-btn-ghost">Ver móveis disponíveis →</label>
+      </div>
+      <!-- Logado -->
+      <div class="hero-actions" id="hero-user-actions" style="display:none;">
+        <label for="modal-cadastro-movel" class="hero-btn hero-btn-primary">+ Cadastrar meu móvel</label>
+        <label for="modal-consulta" class="hero-btn hero-btn-ghost">Ver todos os móveis →</label>
+      </div>
+    </div>
+
+    <a href="#sobre" class="hero-scroll">
+      <svg width="20" height="30" viewBox="0 0 20 30" fill="none">
+        <rect x="1" y="1" width="18" height="28" rx="9" stroke="white" stroke-width="1.5"/>
+        <circle cx="10" cy="9" r="2.5" fill="white" class="scroll-dot"/>
+      </svg>
+    </a>
   </header>
 
-  <!-- Por que doar -->
+  <!-- ======================== SOBRE ======================== -->
   <section class="about" id="sobre">
-    <h2>Por que doar móveis?</h2>
-    <div class="info-content">
-      <p class="intro-text">A doação de móveis é uma prática sustentável e solidária que beneficia tanto o meio ambiente
-        quanto as pessoas em situação de vulnerabilidade social. Quando você doa um móvel em bom estado, está
-        contribuindo para um mundo mais justo e sustentável.</p>
-    </div>
-    <div class="cards">
-      <div class="card">
-        <h3>🌱 Sustentabilidade</h3>
-        <p>Reduza o desperdício e dê uma segunda vida aos seus móveis. Evite que itens em bom estado sejam descartados
-          inadequadamente no meio ambiente.</p>
+    <div class="section-container">
+      <div class="section-intro">
+        <span class="section-label">Por que doar?</span>
+        <h2 class="section-title">Mais do que um móvel.<br><em>Uma corrente do bem.</em></h2>
+        <p class="section-desc">A doação de móveis é uma prática sustentável e solidária que transforma a vida de quem recebe e alivia a consciência de quem doa.</p>
       </div>
-      <div class="card">
-        <h3>❤️ Solidariedade</h3>
-        <p>Ajude famílias e pessoas que precisam mobiliar seus lares. Sua doação pode fazer a diferença na vida de quem
-          mais precisa.</p>
-      </div>
-      <div class="card">
-        <h3>♻️ Reutilização</h3>
-        <p>Promova a economia circular e a reutilização consciente. Cada móvel doado é uma oportunidade de reduzir o
-          consumo de novos recursos.</p>
-      </div>
-      <div class="card">
-        <h3>🏠 Dignidade</h3>
-        <p>Proporcione conforto e dignidade para famílias que estão recomeçando suas vidas ou passando por dificuldades
-          financeiras.</p>
-      </div>
-      <div class="card">
-        <h3>🤝 Comunidade</h3>
-        <p>Fortaleça os laços comunitários e promova a cultura da solidariedade e do compartilhamento em sua região.</p>
-      </div>
-      <div class="card">
-        <h3>💚 Impacto Social</h3>
-        <p>Contribua para a redução da desigualdade social e para a construção de uma sociedade mais justa e inclusiva.
-        </p>
+
+      <div class="cards-grid">
+        <div class="card"><div class="card-icon">🌱</div><h3>Sustentabilidade</h3><p>Evite descartes desnecessários. Dê uma segunda vida ao que você não usa mais.</p></div>
+        <div class="card card-featured"><div class="card-icon">❤️</div><h3>Solidariedade</h3><p>Ajude famílias que precisam mobiliar seus lares. Sua doação transforma realidades.</p></div>
+        <div class="card"><div class="card-icon">♻️</div><h3>Economia circular</h3><p>Promova o reuso consciente e reduza o consumo de novos recursos naturais.</p></div>
+        <div class="card"><div class="card-icon">🏠</div><h3>Dignidade</h3><p>Proporcione conforto para famílias recomeçando ou em dificuldades financeiras.</p></div>
+        <div class="card"><div class="card-icon">🤝</div><h3>Comunidade</h3><p>Fortaleça os laços comunitários e promova a cultura da solidariedade local.</p></div>
+        <div class="card"><div class="card-icon">💚</div><h3>Impacto social</h3><p>Contribua para a redução da desigualdade e para uma sociedade mais inclusiva.</p></div>
       </div>
     </div>
   </section>
-  <!-- Seção de Dados sobre Descarte -->
-  <section class="stats">
-    <h2>Estatísticas</h2>
-    <div class="stat-cards">
-      <div class="stat-card">
-        <h3>📦 Móveis Doados</h3>
-        <p>Mais de 1.500 móveis já foram doados através de nossa plataforma.</p>
-      </div>
-      <div class="stat-card">
-        <h3>👨‍👩‍👧‍👦 Famílias Ajudadas</h3>
-        <p>Mais de 500 famílias já receberam móveis e melhoraram suas casas.</p>
-      </div>
-      <div class="stat-card">
-        <h3>🌍 Impacto Ambiental</h3>
-        <p>Evitamos o descarte de toneladas de móveis em aterros sanitários.</p>
+
+  <!-- ======================== ESTATÍSTICAS ======================== -->
+  <section class="stats-section" id="stats-section">
+    <div class="stats-inner">
+      <span class="section-label light">Nosso impacto</span>
+      <h2 class="section-title light">Números que inspiram</h2>
+      <div class="stats-grid">
+        <div class="stat-item"><span class="stat-number">1.500<sup>+</sup></span><span class="stat-label">Móveis doados</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-number">500<sup>+</sup></span><span class="stat-label">Famílias ajudadas</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-number">12 ton</span><span class="stat-label">Resíduos evitados</span></div>
       </div>
     </div>
   </section>
-  <!-- Caixa de acesso -->
-  <section class="access-box">
-    <h2>Gerencie seus móveis</h2>
-    <div class="buttons">
-      <label for="modal-cadastro-movel" class="btn" onclick="abrirCadastroMovel(); return false;">Cadastrar Móvel</label>
-      <label for="modal-consulta" class="btn">Consultar Móveis</label>
+
+  <!-- ======================== CTA ======================== -->
+  <section class="cta-section">
+    <!-- visitante -->
+    <div class="cta-inner" id="cta-guest">
+      <div class="cta-text">
+        <span class="section-label">Pronto para começar?</span>
+        <h2>Faça parte da mudança</h2>
+        <p>Crie sua conta gratuitamente e comece a doar ou receber móveis hoje.</p>
+      </div>
+      <div class="cta-actions">
+        <label for="modal-cadastro" class="cta-btn cta-primary">Criar conta grátis</label>
+        <label for="modal-consulta" class="cta-btn cta-ghost">Ver móveis →</label>
+      </div>
+    </div>
+    <!-- logado -->
+    <div class="cta-inner" id="cta-user" style="display:none;">
+      <div class="cta-text">
+        <span class="section-label">Você está conectado ✅</span>
+        <h2>O que deseja fazer?</h2>
+        <p>Gerencie suas doações ou encontre móveis disponíveis na plataforma.</p>
+      </div>
+      <div class="cta-actions">
+        <label for="modal-cadastro-movel" class="cta-btn cta-primary">+ Cadastrar móvel</label>
+        <label for="modal-consulta" class="cta-btn cta-ghost">Consultar móveis →</label>
+      </div>
     </div>
   </section>
+
+  <!-- ======================== FOOTER ======================== -->
   <footer class="footer">
-    <p>&copy; 2025 Doação de Móveis. Todos os direitos reservados.</p>
-    <p>GitHub: <a href="https://github.com/Yakino41/Site-Doa-oMovel" target="_blank">Yakino41/Site-Doa-oMovel</a></p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-icon">🌿</span>
+        <span class="brand-name">MóveisSolidários</span>
+      </div>
+      <p class="footer-copy">&copy; 2025 MóveisSolidários · Todos os direitos reservados</p>
+    </div>
   </footer>
-    <script src="access-controls.js"></script>
-    <script src="form-handler.js"></script>
-    <script src="cadastro.js"></script>
+
+  <script src="access-controls.js"></script>
+  <script src="form-handler.js"></script>
+  <script src="cadastro.js"></script>
 </body>
 </html>
