@@ -14,7 +14,7 @@
 
 | Foto | Nome | GitHub |
 |------|------|--------|
-| <img src="img/arthur.webp" width="75" title="Arthur Gabriel Teotonio Stellato"> | Arthur Gabriel Teotonio Stellato | [github.com/Yakino41](https://github.com/Yakino) |
+| <img src="img/arthur.webp" width="75" title="Arthur Gabriel Teotonio Stellato"> | Arthur Gabriel Teotonio Stellato | [github.com/Yakino41](https://github.com/Yakino41) |
 | <img src="img/conrado.jpg" width="75" title="Conrado Henrique Lima Da Mata"> | Conrado Henrique Lima Da Mata | [github.com/conrah](https://github.com/conrah) |
 | <img src="img/jao.jpg" width="75" title="João Felipe Aleixo De Melo"> | João Felipe Aleixo De Melo | [github.com/jooaaao35](https://github.com/jooaaao35) |
 | <img src="img/reinan.jpg" width="75" title="Reinan Cordeiro Morais" > | Reinan Cordeiro Morais | [github.com/reinan-morais](https://github.com/reinan-morais) |
