@@ -27,7 +27,7 @@ A Tabela 3 a seguir contém as Histórias de Usuário elicitadas.
             </td>
             <td align="center">Alta</td>
             <td align="center">RF07</td>
-            <td align="center">13</td>
+            <td align="center">8</td>
         </tr>
         <tr>
             <td align="center">US02</td>
@@ -41,7 +41,7 @@ A Tabela 3 a seguir contém as Histórias de Usuário elicitadas.
             </td>
             <td align="center">Alta</td>
             <td align="center">RF10</td>
-            <td align="center">2</td>
+            <td align="center">3</td>
         </tr>
         <tr>
             <td align="center">US03</td>
@@ -56,7 +56,7 @@ A Tabela 3 a seguir contém as Histórias de Usuário elicitadas.
             </td>
             <td align="center">Alta</td>
             <td align="center">RF03</td>
-            <td align="center">5</td>
+            <td align="center">3</td>
         </tr>
         <tr>
             <td align="center">US04</td>
@@ -71,7 +71,7 @@ A Tabela 3 a seguir contém as Histórias de Usuário elicitadas.
             </td>
             <td align="center">Alta</td>
             <td align="center">RF03</td>
-            <td align="center">5</td>
+            <td align="center">8</td>
         </tr>
     </tbody>
 </table>
