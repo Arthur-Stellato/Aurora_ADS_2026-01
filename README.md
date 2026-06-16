@@ -56,4 +56,7 @@ Aqui você encontra todos os documentos relacionados ao projeto:
 ---
 
 ## 📌 Status do Projeto
-<img src="img/cat.gif" width="20" height="20" title="cat"> Em desenvolvimento
+<img src="img/cat.gif" width="20" height="20" title="cat"> Finalizado
+
+## Video Da Apresentação do Projeto
+https://www.youtube.com/watch?v=LU23BJITXOE
